@@ -28,10 +28,10 @@ contract DeployScript is Script {
     function run() public {
         // 获取部署配置
         DeployConfig memory config = getDeployConfig();
-        
+
         // 获取网络配置
         NetworkConfig memory network = getNetworkConfig();
-        
+
         console2.log("=== Deployment Config ===");
         console2.log("Network:", network.name);
         console2.log("Chain ID:", network.chainId);
@@ -43,7 +43,7 @@ contract DeployScript is Script {
 
         // 获取私钥
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
-        
+
         // 开始广播
         vm.startBroadcast(deployerPrivateKey);
 
@@ -81,56 +81,46 @@ contract DeployScript is Script {
     function getDeployConfig() internal view returns (DeployConfig memory) {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         address deployer = vm.addr(deployerPrivateKey);
-        
+
         // 可以从环境变量获取管理员地址，默认为部署者
         address admin = vm.envOr("ADMIN_ADDRESS", deployer);
-        
+
         // 初始供应量，默认为 0
         uint256 initialSupply = vm.envOr("INITIAL_SUPPLY", uint256(0));
-        
+
         // 是否验证合约
         bool verify = vm.envOr("VERIFY_CONTRACT", true);
-        
-        return DeployConfig({
-            deployer: deployer,
-            admin: admin,
-            initialSupply: initialSupply,
-            verify: verify
-        });
+
+        return DeployConfig({deployer: deployer, admin: admin, initialSupply: initialSupply, verify: verify});
     }
 
-    function getNetworkConfig() internal view returns (NetworkConfig memory) {       
+    function getNetworkConfig() internal view returns (NetworkConfig memory) {
+        uint256 chainId = block.chainid;
 
-        uint256 chainId= block.chainid;
-
-        if (chainId==97) {
-        return NetworkConfig({
-            name: "Qday Testnet",
-            chainId: block.chainid,
-            rpcUrl: vm.envString("ETH_RPC_URL"),
-            explorerUrl: "",
-            gasPrice: vm.envOr("GAS_PRICE", uint256(20 gwei)),
-            gasLimit: vm.envOr("GAS_LIMIT", uint256(5000000))
-        });
-        }else {
-        return NetworkConfig({
-            name: "Qday Mainnet",
-            chainId: block.chainid,
-            rpcUrl: vm.envString("ETH_RPC_URL"),
-            explorerUrl: "",
-            gasPrice: vm.envOr("GAS_PRICE", uint256(20 gwei)),
-            gasLimit: vm.envOr("GAS_LIMIT", uint256(5000000))
-        });
+        if (chainId == 97) {
+            return NetworkConfig({
+                name: "Qday Testnet",
+                chainId: block.chainid,
+                rpcUrl: vm.envString("ETH_RPC_URL"),
+                explorerUrl: "",
+                gasPrice: vm.envOr("GAS_PRICE", uint256(20 gwei)),
+                gasLimit: vm.envOr("GAS_LIMIT", uint256(5000000))
+            });
+        } else {
+            return NetworkConfig({
+                name: "Qday Mainnet",
+                chainId: block.chainid,
+                rpcUrl: vm.envString("ETH_RPC_URL"),
+                explorerUrl: "",
+                gasPrice: vm.envOr("GAS_PRICE", uint256(20 gwei)),
+                gasLimit: vm.envOr("GAS_LIMIT", uint256(5000000))
+            });
         }
-
-
     }
 
-    function saveDeploymentInfo(
-        address tokenAddress,
-        NetworkConfig memory network,
-        DeployConfig memory config
-    ) internal {
+    function saveDeploymentInfo(address tokenAddress, NetworkConfig memory network, DeployConfig memory config)
+        internal
+    {
         console2.log("=== Deployment Info ===");
         console2.log("Token Address:", tokenAddress);
         console2.log("Network:", network.name);
@@ -149,10 +139,10 @@ contract DeployScript is Script {
             console2.log("Skipping verification: No block explorer URL configured");
             return;
         }
-        
+
         console2.log("Please verify contract manually:");
         console2.log("Contract address:", contractAddress);
         console2.log("Block explorer:", network.explorerUrl);
         console2.log("Constructor arguments: None");
     }
-} 
+}
