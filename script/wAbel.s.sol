@@ -15,10 +15,10 @@ contract wAbelScript is Script {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         address deployer = vm.addr(deployerPrivateKey);
         console2.log("Deployer address:", deployer);
-        
+
         vm.startBroadcast(deployerPrivateKey);
         wAbel token = new wAbel();
         console2.log("wAbel deployed at:", address(token));
         vm.stopBroadcast();
     }
-} 
+}

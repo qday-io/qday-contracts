@@ -13,12 +13,12 @@ contract wAbel is ERC20, AccessControl {
     }
 
     // 用户存款，mint 代币给自己
-    function deposit(address to,uint256 amount) external onlyRole(ADMIN_ROLE) {
+    function deposit(address to, uint256 amount) external onlyRole(ADMIN_ROLE) {
         _mint(msg.sender, amount);
     }
 
     // 用户取款，burn 自己的代币
-    function withdraw(address from ,uint256 amount) external onlyRole(ADMIN_ROLE) {
+    function withdraw(address from, uint256 amount) external onlyRole(ADMIN_ROLE) {
         _burn(msg.sender, amount);
     }
-} 
+}
