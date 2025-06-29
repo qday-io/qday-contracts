@@ -104,6 +104,10 @@ load_env() {
 
 # 本地部署
 deploy_local() {
+    # 如果 out.txt 存在则先删除
+    if [ -f out.txt ]; then
+        rm out.txt
+    fi
     print_info "开始本地部署..."
     
     # 检查 anvil 是否运行
@@ -114,16 +118,30 @@ deploy_local() {
     fi
     
     print_info "执行部署脚本..."
+    print_info "部署信息将保存到 out.txt 文件中..."
+    
+    # 记录部署开始时间
+    echo "=== 本地部署开始时间: $(date) ===" | tee out.txt
+    
+    # 执行部署并同时输出到控制台和文件
     forge script script/Deploy.s.sol \
         --rpc-url http://localhost:8545 \
         --broadcast \
-        -vvv
+        -vvv 2>&1 | tee -a out.txt
+    
+    # 记录部署完成时间
+    echo "=== 本地部署完成时间: $(date) ===" | tee -a out.txt
     
     print_success "本地部署完成！"
+    print_success "部署信息已保存到 out.txt 文件中"
 }
 
 # 主网部署
 deploy_mainnet() {
+    # 如果 out.txt 存在则先删除
+    if [ -f out.txt ]; then
+        rm out.txt
+    fi
     print_info "开始主网部署..."
     
     # 确认部署
@@ -134,33 +152,54 @@ deploy_mainnet() {
     fi
     
     print_info "执行部署脚本..."
+    print_info "部署信息将保存到 out.txt 文件中..."
+    
+    # 记录部署开始时间
+    echo "=== 主网部署开始时间: $(date) ===" | tee out.txt
     
     if [ "$1" = "verify" ]; then
         forge script script/Deploy.s.sol \
             --rpc-url "$ETH_RPC_URL" \
             --broadcast \
             --verify \
-            -vvv
+            -vvv 2>&1 | tee -a out.txt
     else
         forge script script/Deploy.s.sol \
             --rpc-url "$ETH_RPC_URL" \
             --broadcast \
-            -vvv
+            -vvv 2>&1 | tee -a out.txt
     fi
     
+    # 记录部署完成时间
+    echo "=== 主网部署完成时间: $(date) ===" | tee -a out.txt
+    
     print_success "主网部署完成！"
+    print_success "部署信息已保存到 out.txt 文件中"
 }
 
 # 模拟部署
 simulate_deploy() {
+    # 如果 out.txt 存在则先删除
+    if [ -f out.txt ]; then
+        rm out.txt
+    fi
     print_info "开始模拟部署..."
     
     print_info "执行部署脚本 (模拟模式)..."
+    print_info "部署信息将保存到 out.txt 文件中..."
+    
+    # 记录部署开始时间
+    echo "=== 模拟部署开始时间: $(date) ===" | tee out.txt
+    
     forge script script/Deploy.s.sol \
         --rpc-url "$ETH_RPC_URL" \
-        -vvv
+        -vvv 2>&1 | tee -a out.txt
+    
+    # 记录部署完成时间
+    echo "=== 模拟部署完成时间: $(date) ===" | tee -a out.txt
     
     print_success "模拟部署完成！"
+    print_success "部署信息已保存到 out.txt 文件中"
 }
 
 # 主函数

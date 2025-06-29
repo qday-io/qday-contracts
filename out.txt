@@ -1,0 +1,84 @@
+=== 本地部署开始时间: Sun Jun 29 22:32:10 CST 2025 ===
+Compiling 1 files with Solc 0.8.20
+Solc 0.8.20 finished in 1.19s
+Compiler run successful with warnings:
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/wAbel.sol:16:22:
+   |
+16 |     function deposit(address to, uint256 amount) external onlyRole(ADMIN_ROLE) {
+   |                      ^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/wAbel.sol:21:23:
+   |
+21 |     function withdraw(address from, uint256 amount) external onlyRole(ADMIN_ROLE) {
+   |                       ^^^^^^^^^^^^
+
+Warning (2018): Function state mutability can be restricted to view
+   --> script/Deploy.s.sol:121:5:
+    |
+121 |     function saveDeploymentInfo(address tokenAddress, NetworkConfig memory network, DeployConfig memory config)
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> script/Deploy.s.sol:137:5:
+    |
+137 |     function verifyContract(address contractAddress, NetworkConfig memory network) internal {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Script ran successfully.
+
+== Logs ==
+  === Deployment Config ===
+  Network: Qday Mainnet
+  Chain ID: 31337
+  Deployer address: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  Admin address: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  Initial supply: 0
+  Verify contract: true
+  ========================
+  Deploying wAbel contract...
+  wAbel contract deployed at: 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+  Contract name: QdayTokenOfAbel
+  Contract symbol: QAbel
+  === Deployment Complete ===
+  Contract address: 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+  Deployer: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  Admin: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  Network: Qday Mainnet
+  ==========================
+  === Deployment Info ===
+  Token Address: 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+  Network: Qday Mainnet
+  Chain ID: 31337
+  Deployer: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  Admin: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  Deployed at: 1751204336
+  Block: 3
+  =======================
+  Deployment info logged to console
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 31337
+
+Estimated gas price: 1.554775145 gwei
+
+Estimated total gas used for script: 1044552
+
+Estimated amount required: 0.00162404348726004 ETH
+
+==========================
+
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /Users/vikesun/workspace/go/qday/qday-contracts/broadcast/Deploy.s.sol/31337/run-latest.json
+
+Sensitive values saved to: /Users/vikesun/workspace/go/qday/qday-contracts/cache/Deploy.s.sol/31337/run-latest.json
+
+=== 本地部署完成时间: Sun Jun 29 22:32:12 CST 2025 ===
